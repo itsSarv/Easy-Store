@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const Controller = require("./user.contorller");
+const Controller = require("./auth.controller");
 
-router.post("/", async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   try {
     const result = await Controller.create(req.body);
     res.json({ data: result, message: "success" });

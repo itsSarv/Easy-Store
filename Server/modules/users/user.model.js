@@ -1,7 +1,6 @@
 const { model, Schema } = require("mongoose");
 const commonSchema = require("../../utils/commonSchema");
 const validateEmail = require("./user.validation");
-const registerUser = require("./user.validation");
 
 const userSchema = new Schema({
   name: { type: String, required: "Full name is required" },
@@ -17,6 +16,7 @@ const userSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
+  isEmailVerified: { type: Boolean, default: false },
   password: {
     type: String,
     required: true,
