@@ -25,7 +25,18 @@ router.post("/verify", async (req, res, next) => {
   try {
     const { email, token } = req.body;
     if (!email || !token) throw new Error("Email or token is missing");
-    const result = await Controller.Login(email, token);
+    const result = await Controller.verfiyEmail(email, token);
+    res.json({ data: result, message: "success" });
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/regenerate", async (req, res, next) => {
+  try {
+    const { email} = req.body;
+    if (!email) throw new Error("Email is missing");
+    const result = await Controller.regenerateToken(email);
     res.json({ data: result, message: "success" });
   } catch (e) {
     next(e);

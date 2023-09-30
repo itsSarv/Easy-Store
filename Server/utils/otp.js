@@ -1,10 +1,15 @@
 const { totp } = require("otplib");
 
+totp.options = {
+  epoch:Date.now(),
+  step: +process.env.OTP_DURATION_IN_SECS,
+};
+
 const generateOTP = () => {
   return totp.generate(process.env.OTP_SECRET);
 };
 
-const verifyOTP = () => {
+const verifyOTP = (token) => {
   return totp.check(token, process.env.OTP_SECRET);
 };
 
