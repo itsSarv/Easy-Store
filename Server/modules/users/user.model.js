@@ -22,6 +22,7 @@ const userSchema = new Schema({
     required: true,
     select: false,
   },
+  roles:{type:Array, default:["user"], required:true},
   isActive: { type: Boolean, default: true, required: true },
   ...commonSchema,
 });

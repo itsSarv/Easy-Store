@@ -6,7 +6,7 @@ const { generateOTP, verifyOTP } = require("../../utils/otp");
 const {generateJWT} = require("../../utils/jwt")
 
 const create = async (payload) => {
-  const { password, ...rest } = payload;
+  const { password, roles, ...rest } = payload;
   rest.password = await bcrypt.hash(password, +process.env.SALT_ROUND);
   const user = await usermodel.create(rest);
   const token = generateOTP()
@@ -19,14 +19,14 @@ const create = async (payload) => {
 
 const Login = async (email, password) => {
   const user = await usermodel.findOne({ email }).select("+password");
+  if (!user) throw new Error("User Not Found....");
+  const result = await bcrypt.compare(password, user.password);
+  if (!result) throw new Error("Email or Password Mismach");
   // Email Exist ?
   if (!user.isEmailVerified)
     throw new Error("Email is not verfied. Verify to get started");
   // Is user active?
   if (!user.isActive) throw new Error("User is blocked. Please Contact Admin");
-  if (!user) throw new Error("User Not Found....");
-  const result = await bcrypt.compare(password, user.password);
-  if (!result) throw new Error("Email or Password Mismach");
 
   //Generate JWT toke
   const token = generateJWT({email:user?.email, roles:user?.roles ?? []});
