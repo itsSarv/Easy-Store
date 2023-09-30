@@ -13,12 +13,12 @@ const create = async (payload) => {
   await authModel.create({ email: user?.email, token});
 
   //send token to email
-  await mail(user?.email, token)
-  return user;
+  const mail = await mail(user?.email, token)
+  return mail;
 };
 
 const Login = async (email, password) => {
-  const user = await usermodel.findOne({ email });
+  const user = await usermodel.findOne({ email }).select("+password");
   // Email Exist ?
   if (!user.isEmailVerified)
     throw new Error("Email is not verfied. Verify to get started");

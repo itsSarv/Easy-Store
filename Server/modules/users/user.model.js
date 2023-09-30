@@ -20,6 +20,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   isActive: { type: Boolean, default: true, required: true },
   ...commonSchema,
