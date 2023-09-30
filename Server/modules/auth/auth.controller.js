@@ -3,6 +3,7 @@ const authModel = require("../auth/auth.model");
 const bcrypt = require("bcrypt");
 const {mail} = require("../../services/mail")
 const { generateOTP, verifyOTP } = require("../../utils/otp");
+const {generateJWT} = require("../../utils/jwt")
 
 const create = async (payload) => {
   const { password, ...rest } = payload;
@@ -26,7 +27,11 @@ const Login = async (email, password) => {
   if (!user) throw new Error("User Not Found....");
   const result = await bcrypt.compare(password, user.password);
   if (!result) throw new Error("Email or Password Mismach");
-  return result;
+
+  //Generate JWT toke
+  const token = generateJWT({email:user?.email, roles:user?.roles ?? []});
+
+  return{token};
 };
 
 const verfiyEmail = async (email, token) => {
