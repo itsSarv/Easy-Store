@@ -13,8 +13,8 @@ const create = async (payload) => {
   await authModel.create({ email: user?.email, token});
 
   //send token to email
-  const mail = await mail(user?.email, token)
-  return mail;
+  await mail(user.email, token)
+  return user;
 };
 
 const Login = async (email, password) => {
