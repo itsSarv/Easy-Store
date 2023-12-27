@@ -10,7 +10,7 @@ mongoose.connect(DB_URL).then(() => {
   console.log("Database Connected...");
 });
 
-app.use(cors()); //kun domain lai access garna paucha back-end leh define garne package cors
+app.use(cors()); 
 app.use(express.json());
 
 const indexRouter = require("./Routes");
