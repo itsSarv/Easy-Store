@@ -7,12 +7,14 @@ import {
   Route
 } from 'react-router-dom'
 import Admin from './components/Admin'
+import Notfound from './components/Notfound';
 
 const App = () => {
   return (
     <BrowserRouter>
     <Routes>
       <Route path='/admin' element={<Admin/>}/>
+      <Route path='*' element={<Notfound/>}/>
     </Routes>
     </BrowserRouter>
   )
