@@ -1,2 +1,2 @@
 # Easy-Store
-Ecommerce Store build using MERN STACK (MongoDB, React, Express &amp; NodeJs)
+secure login and registration system build with MERN STACK with email verification.
